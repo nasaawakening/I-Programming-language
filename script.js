@@ -119,3 +119,66 @@ window.onload = () => {
     }
     updateView();
 };
+
+// --- FITUR EXPORT & IMPORT ---
+
+// 1. Export: Mengunduh teks di editor menjadi file .ipp
+function exportCode() {
+    const code = document.getElementById("editing").value;
+    const blob = new Blob([code], { type: "text/plain" });
+    const anchor = document.createElement("a");
+    anchor.download = "program_nasa.ipp";
+    anchor.href = window.URL.createObjectURL(blob);
+    anchor.click();
+}
+
+// 2. Import: Membaca file .ipp dari komputer dan memasukkannya ke editor
+function importCode(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById("editing").value = e.target.result;
+        updateView();
+    };
+    reader.readAsText(file);
+}
+
+// --- FITUR MULTIPLAYER (SHARE LINK) ---
+
+// 3. Share: Membuat link unik yang berisi seluruh kode editor
+function shareProject() {
+    const code = document.getElementById("editing").value;
+    // Mengubah kode menjadi format Base64 agar aman di dalam URL
+    const encodedCode = btoa(unescape(encodeURIComponent(code)));
+    const shareUrl = window.location.origin + window.location.pathname + "?code=" + encodedCode;
+    
+    // Copy ke clipboard
+    navigator.clipboard.writeText(shareUrl).then(() => {
+        alert("Link Multiplayer berhasil disalin! Kirim link ini ke temanmu untuk bekerja sama.");
+    });
+}
+
+// 4. Load from URL: Saat halaman dibuka, cek apakah ada kode di URL
+function loadFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const codeParam = urlParams.get('code');
+    if (codeParam) {
+        try {
+            const decodedCode = decodeURIComponent(escape(atob(codeParam)));
+            document.getElementById("editing").value = decodedCode;
+            updateView();
+            // Pindah ke tab terminal otomatis agar user bisa langsung lihat kodenya
+            openTab('terminal');
+        } catch (e) {
+            console.error("Gagal memuat kode dari link.");
+        }
+    }
+}
+
+// Panggil fungsi loadFromUrl di dalam window.onload yang sudah ada
+const originalOnload = window.onload;
+window.onload = () => {
+    if (originalOnload) originalOnload();
+    loadFromUrl();
+};
