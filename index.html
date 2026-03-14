@@ -15,21 +15,16 @@
         <button class="nav-btn active" onclick="openTab('home')">🏠 Home</button>
         <button class="nav-btn" onclick="openTab('docs')">📖 Cara Pakai</button>
         <button class="nav-btn" onclick="openTab('terminal')">💻 Terminal & Uji Coba</button>
-        <div class="credit">By Nasa - Bangi</div>
-
-<div class="controls">
-        <button onclick="jalankanIpp()">./run_ipp</button>
-        <button onclick="clearConsole()">clear</button>
-        <button onclick="exportCode()">💾 Export .ipp</button>
-        <label for="importFile" class="custom-file-upload">[ 📂 Import ]</label>
-    <input type="file" id="importFile" onchange="importCode(event)" style="display:none;">
-    <button onclick="shareProject()" style="border-color: #ffbd2e; color: #ffbd2e;">👥 Share Multiplayer</button>
-                                        </div>
-
+        
+        <div class="credit">
+            <strong>Nasa - Developer</strong><br>
+            Dsn. Bangi, Kayenlor<br>
+            Kediri
+        </div>
     </nav>
 
     <main class="content">
-        
+
         <section id="home" class="tab-content active">
             <h1>Selamat Datang di I++</h1>
             <p>I++ adalah bahasa pemrograman sederhana yang dibuat untuk belajar logika dasar komputer. Proyek ini lahir dari Dsn. Bangi, Ds. Kayenlor.</p>
@@ -37,20 +32,24 @@
                 <h3>Apa itu I++?</h3>
                 <p>Bahasa ini menggunakan interpreter berbasis JavaScript yang berjalan langsung di browser tanpa instalasi tambahan.</p>
             </div>
+            <div class="card">
+                <h3>Bakso Bangi Pak Romdani</h3>
+                <p>Didukung oleh semangat lokal dari Plemahan, Kediri.</p>
+            </div>
         </section>
 
         <section id="docs" class="tab-content">
             <h1>Dokumentasi I++</h1>
             <div class="readme-box">
-                <h3>1. Perintah `simpan`</h3>
+                <h3>1. Perintah <code>simpan</code></h3>
                 <p>Digunakan untuk membuat variabel.</p>
                 <code>simpan [nama] = [nilai]</code>
-                
-                <h3>2. Perintah `cetak`</h3>
+
+                <h3>2. Perintah <code>cetak</code></h3>
                 <p>Menampilkan isi variabel atau teks ke layar.</p>
                 <code>cetak [nama_variabel]</code>
 
-                <h3>3. Perintah `tambah`</h3>
+                <h3>3. Perintah <code>tambah</code></h3>
                 <p>Menjumlahkan dua angka.</p>
                 <code>tambah [angka1] [angka2]</code>
             </div>
@@ -64,16 +63,26 @@
                     <div class="dot green"></div>
                     <div class="title">nasa@bangi: ~/interpreter</div>
                 </div>
+
                 <div class="editor-wrapper">
                     <textarea id="editing" spellcheck="false" oninput="updateView(); syncScroll();" onscroll="syncScroll()"></textarea>
                     <pre id="highlighting" aria-hidden="true"><code class="language-javascript" id="highlighting-content"></code></pre>
                 </div>
+
                 <div class="controls">
-                    <button onclick="jalankanIpp()">./run_ipp</button>
+                    <button class="btn-run" onclick="jalankanIpp()">./run_ipp</button>
                     <button onclick="clearConsole()">clear</button>
                     <button onclick="isiContoh()">Load Example</button>
+                    <button onclick="exportCode()">💾 Export .ipp</button>
+                    
+                    <label for="importFile" class="custom-file-upload">📂 Import</label>
+                    <input type="file" id="importFile" onchange="importCode(event)" style="display:none;">
+                    
+                    <button onclick="shareProject()" style="border-color: #ffbd2e; color: #ffbd2e;">👥 Share Multiplayer</button>
                 </div>
+
                 <div class="console-section">
+                    <div class="console-label">// TERMINAL_OUTPUT</div>
                     <pre id="output">Siap diuji coba...</pre>
                 </div>
             </div>
