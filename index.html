@@ -2,71 +2,36 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>I++ Playground</title>
-    <style>
-        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        textarea { width: 100%; height: 200px; font-family: monospace; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-        button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-        #output { background: #333; color: #0f0; padding: 15px; margin-top: 20px; border-radius: 4px; min-height: 100px; white-space: pre-wrap; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I++ Programming Language</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
 <body>
 
 <div class="container">
-    <h1>I++ Programming Language</h1>
-    <p>Tulis kode I++ di bawah ini:</p>
-    
-    <textarea id="editor">
-# Contoh Kode I++
-cetak Halo dari Kediri!
-simpan namasaya = Nasa
-cetak namasaya
-tambah 15 25
-    </textarea>
+    <header>
+        <h1>I++ <span class="version">v1.0</span></h1>
+        <p>Interpreter Engine by <strong>Nasa</strong></p>
+    </header>
 
-    <button onclick="jalankanIpp()">Jalankan Kode</button>
+    <div class="editor-wrapper">
+        <textarea id="editing" spellcheck="false" oninput="updateView(); syncScroll();" onscroll="syncScroll()"></textarea>
+        <pre id="highlighting" aria-hidden="true"><code class="language-javascript" id="highlighting-content"></code></pre>
+    </div>
 
-    <h3>Output:</h3>
-    <div id="output"></div>
+    <div class="controls">
+        <button onclick="jalankanIpp()" id="runBtn">RUN CODE ▶</button>
+        <button onclick="clearConsole()" id="clearBtn">Hapus Konsol</button>
+    </div>
+
+    <div class="console-box">
+        <h3>Terminal Output:</h3>
+        <pre id="output">> Mesin I++ siap di Kayenlor...</pre>
+    </div>
 </div>
 
-<script>
-    const variables = {};
-
-    function jalankanIpp() {
-        const code = document.getElementById('editor').value;
-        const outputDiv = document.getElementById('output');
-        outputDiv.innerHTML = ""; // Reset output
-        
-        const lines = code.split('\n');
-
-        lines.forEach(line => {
-            line = line.trim();
-            if (!line || line.startsWith('#')) return;
-
-            const tokens = line.split(' ');
-            const command = tokens[0];
-
-            if (command === "cetak") {
-                const content = tokens.slice(1).join(' ');
-                const val = variables[content] !== undefined ? variables[content] : content;
-                outputDiv.innerHTML += val + "\n";
-            } 
-            else if (command === "simpan") {
-                const varName = tokens[1];
-                const varValue = tokens.slice(3).join(' ');
-                variables[varName] = varValue;
-            } 
-            else if (command === "tambah") {
-                const num1 = parseFloat(tokens[1]);
-                const num2 = parseFloat(tokens[2]);
-                outputDiv.innerHTML += (num1 + num2) + "\n";
-            }
-        });
-    }
-</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
-
