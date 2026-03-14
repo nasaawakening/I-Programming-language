@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>I++ Playground</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        textarea { width: 100%; height: 200px; font-family: monospace; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        #output { background: #333; color: #0f0; padding: 15px; margin-top: 20px; border-radius: 4px; min-height: 100px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>I++ Programming Language</h1>
+    <p>Tulis kode I++ di bawah ini:</p>
+    
+    <textarea id="editor">
+# Contoh Kode I++
+cetak Halo dari Kediri!
+simpan namasaya = Nasa
+cetak namasaya
+tambah 15 25
+    </textarea>
+
+    <button onclick="jalankanIpp()">Jalankan Kode</button>
+
+    <h3>Output:</h3>
+    <div id="output"></div>
+</div>
+
+<script>
+    const variables = {};
+
+    function jalankanIpp() {
+        const code = document.getElementById('editor').value;
+        const outputDiv = document.getElementById('output');
+        outputDiv.innerHTML = ""; // Reset output
+        
+        const lines = code.split('\n');
+
+        lines.forEach(line => {
+            line = line.trim();
+            if (!line || line.startsWith('#')) return;
+
+            const tokens = line.split(' ');
+            const command = tokens[0];
+
+            if (command === "cetak") {
+                const content = tokens.slice(1).join(' ');
+                const val = variables[content] !== undefined ? variables[content] : content;
+                outputDiv.innerHTML += val + "\n";
+            } 
+            else if (command === "simpan") {
+                const varName = tokens[1];
+                const varValue = tokens.slice(3).join(' ');
+                variables[varName] = varValue;
+            } 
+            else if (command === "tambah") {
+                const num1 = parseFloat(tokens[1]);
+                const num2 = parseFloat(tokens[2]);
+                outputDiv.innerHTML += (num1 + num2) + "\n";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
+
