@@ -41,3 +41,18 @@ button:hover { border-color: #00ff41; color: #00ff41; }
 /* Readme Card */
 .card, .readme-box { background: #1a1a1a; padding: 20px; border-radius: 8px; margin-top: 20px; }
 code { background: #000; color: #ffbd2e; padding: 3px 8px; border-radius: 4px; display: block; margin: 10px 0; }
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 5px 15px;
+    cursor: pointer;
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    font-family: 'Fira Code', monospace;
+    font-size: 13.3px;
+    border-radius: 0px; /* Sesuai gaya terminal sebelumnya */
+}
+.custom-file-upload:hover {
+    background: #00ff41;
+    color: #000;
+}
