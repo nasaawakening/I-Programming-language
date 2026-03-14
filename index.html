@@ -3,34 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I++ Terminal IDE</title>
+    <title>I++ Ecosystem - Nasa</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
 <body>
 
-<div class="terminal-window">
-    <div class="terminal-header">
-        <div class="dot red"></div>
-        <div class="dot yellow"></div>
-        <div class="dot green"></div>
-        <div class="title">nasa@bangi: ~/ipp-compiler</div>
-    </div>
+<div class="main-layout">
+    <nav class="sidebar">
+        <div class="logo">I++ Engine</div>
+        <button class="nav-btn active" onclick="openTab('home')">🏠 Home</button>
+        <button class="nav-btn" onclick="openTab('docs')">📖 Cara Pakai</button>
+        <button class="nav-btn" onclick="openTab('terminal')">💻 Terminal & Uji Coba</button>
+        <div class="credit">By Nasa - Bangi</div>
+    </nav>
 
-    <div class="editor-wrapper">
-        <textarea id="editing" spellcheck="false" oninput="updateView(); syncScroll();" onscroll="syncScroll()"></textarea>
-        <pre id="highlighting" aria-hidden="true"><code class="language-javascript" id="highlighting-content"></code></pre>
-    </div>
+    <main class="content">
+        
+        <section id="home" class="tab-content active">
+            <h1>Selamat Datang di I++</h1>
+            <p>I++ adalah bahasa pemrograman sederhana yang dibuat untuk belajar logika dasar komputer. Proyek ini lahir dari Dsn. Bangi, Ds. Kayenlor.</p>
+            <div class="card">
+                <h3>Apa itu I++?</h3>
+                <p>Bahasa ini menggunakan interpreter berbasis JavaScript yang berjalan langsung di browser tanpa instalasi tambahan.</p>
+            </div>
+        </section>
 
-    <div class="controls">
-        <button onclick="jalankanIpp()">./run_ipp</button>
-        <button onclick="clearConsole()">clear</button>
-    </div>
+        <section id="docs" class="tab-content">
+            <h1>Dokumentasi I++</h1>
+            <div class="readme-box">
+                <h3>1. Perintah `simpan`</h3>
+                <p>Digunakan untuk membuat variabel.</p>
+                <code>simpan [nama] = [nilai]</code>
+                
+                <h3>2. Perintah `cetak`</h3>
+                <p>Menampilkan isi variabel atau teks ke layar.</p>
+                <code>cetak [nama_variabel]</code>
 
-    <div class="console-section">
-        <div class="console-label">// SYSTEM_LOG</div>
-        <pre id="output">I++ System v1.0 - Ready in Kayenlor.</pre>
-    </div>
+                <h3>3. Perintah `tambah`</h3>
+                <p>Menjumlahkan dua angka.</p>
+                <code>tambah [angka1] [angka2]</code>
+            </div>
+        </section>
+
+        <section id="terminal" class="tab-content">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                    <div class="title">nasa@bangi: ~/interpreter</div>
+                </div>
+                <div class="editor-wrapper">
+                    <textarea id="editing" spellcheck="false" oninput="updateView(); syncScroll();" onscroll="syncScroll()"></textarea>
+                    <pre id="highlighting" aria-hidden="true"><code class="language-javascript" id="highlighting-content"></code></pre>
+                </div>
+                <div class="controls">
+                    <button onclick="jalankanIpp()">./run_ipp</button>
+                    <button onclick="clearConsole()">clear</button>
+                    <button onclick="isiContoh()">Load Example</button>
+                </div>
+                <div class="console-section">
+                    <pre id="output">Siap diuji coba...</pre>
+                </div>
+            </div>
+        </section>
+
+    </main>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
