@@ -1,81 +1,121 @@
-const variables = {};
+/**
+ * I++ Script Engine
+ * Developed by: Nasa (Bangi, Kayenlor)
+ * Features: SPA Navigation, Syntax Highlighting, Interpreter, Auto-save
+ */
 
-// 1. Highlight & Auto-save
+let variables = {};
+
+// --- 1. NAVIGASI TAB ---
+function openTab(tabId) {
+    // Sembunyikan semua konten tab
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Matikan semua tombol aktif
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Tampilkan tab yang dipilih & aktifkan tombolnya
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+
+// --- 2. EDITOR & SYNTAX HIGHLIGHTING ---
 function updateView() {
-    let code = document.getElementById("editing").value;
-    let resultElement = document.getElementById("highlighting-content");
+    const editing = document.getElementById("editing");
+    const resultElement = document.getElementById("highlighting-content");
+    let code = editing.value;
     
-    // Simulasikan pewarnaan syntax
+    // Proses pewarnaan syntax (Regex)
     let highlighted = code
-        .replace(/\b(cetak|simpan|tambah)\b/g, '<span style="color: #cc99cd;">$1</span>')
-        .replace(/#.*/g, '<span style="color: #666; font-style: italic;">$&</span>')
-        .replace(/\b\d+\b/g, '<span style="color: #f08d49;">$&</span>');
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") // Proteksi tag HTML
+        .replace(/\b(cetak|simpan|tambah)\b/g, '<span style="color: #cc99cd;">$1</span>') // Command
+        .replace(/#.*/g, '<span style="color: #666; font-style: italic;">$&</span>') // Komentar
+        .replace(/\b\d+\b/g, '<span style="color: #f08d49;">$&</span>'); // Angka
 
-    resultElement.innerHTML = highlighted;
+    resultElement.innerHTML = highlighted + "\n";
     
-    // Auto-save ke LocalStorage
+    // Simpan otomatis ke memori browser
     localStorage.setItem("ipp_backup", code);
 }
 
 function syncScroll() {
-    let editing = document.getElementById("editing");
-    let highlighting = document.getElementById("highlighting");
+    const editing = document.getElementById("editing");
+    const highlighting = document.getElementById("highlighting");
     highlighting.scrollTop = editing.scrollTop;
     highlighting.scrollLeft = editing.scrollLeft;
 }
 
-// 2. Logic Interpreter I++
+// --- 3. INTERPRETER I++ ---
 function jalankanIpp() {
     const code = document.getElementById('editing').value;
     const outputDiv = document.getElementById('output');
-    outputDiv.innerHTML = ""; 
+    
+    outputDiv.innerHTML = "Running system...\n"; 
+    variables = {}; // Reset variabel setiap kali dijalankan
     
     const lines = code.split('\n');
     
-    for (let i = 0; i < lines.length; i++) {
-        let line = lines[i].trim();
-        if (!line || line.startsWith('#')) continue;
+    lines.forEach((line, i) => {
+        let trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) return;
 
-        const tokens = line.split(' ');
+        const tokens = trimmed.split(/\s+/);
         const command = tokens[0].toLowerCase();
 
         try {
             if (command === "cetak") {
-                const content = tokens.slice(1).join(' ');
-                if (!content) throw "Butuh teks untuk dicetak.";
-                outputDiv.innerHTML += `> ${variables[content] || content}\n`;
+                const target = tokens.slice(1).join(' ');
+                // Jika target adalah variabel yang ada di memori, ambil nilainya. Jika tidak, cetak teks aslinya.
+                const val = variables[target] !== undefined ? variables[target] : target;
+                outputDiv.innerHTML += `> ${val}\n`;
             } 
             else if (command === "simpan") {
-                if (tokens[2] !== "=") throw "Format: simpan [var] = [nilai]";
-                variables[tokens[1]] = tokens.slice(3).join(' ');
+                const eqIndex = tokens.indexOf("=");
+                if (eqIndex === -1) throw "Gunakan tanda '='. Contoh: simpan x = 10";
+                
+                const varName = tokens.slice(1, eqIndex).join(' ');
+                const varValue = tokens.slice(eqIndex + 1).join(' ');
+                variables[varName] = varValue;
             } 
             else if (command === "tambah") {
+                if (tokens.length < 3) throw "Butuh 2 angka untuk ditambah.";
                 const n1 = parseFloat(tokens[1]);
                 const n2 = parseFloat(tokens[2]);
                 if (isNaN(n1) || isNaN(n2)) throw "Input harus angka.";
                 outputDiv.innerHTML += `> RESULT: ${n1 + n2}\n`;
             } 
             else {
-                throw `Perintah '${command}' tidak dikenal.`;
+                throw `Perintah '${command}' tidak dikenali.`;
             }
         } catch (e) {
             outputDiv.innerHTML += `<span style="color:#ff5f56">[ERR Baris ${i+1}]: ${e}</span>\n`;
-            break;
         }
-    }
+    });
 }
 
+// --- 4. FUNGSI PEMBANTU ---
 function clearConsole() {
     document.getElementById('output').innerHTML = "> console cleared.";
 }
 
-// 3. Load Awal
+function isiContoh() {
+    const code = "# Contoh Program I++\nsimpan warung = Bakso Bangi Pak Romdani\ncetak warung\n\nsimpan porsi = 15000\nsimpan es_teh = 3000\ncetak Total_Bayar:\ntambah 15000 3000";
+    document.getElementById("editing").value = code;
+    updateView();
+}
+
+// --- 5. INITIAL LOAD ---
 window.onload = () => {
     const saved = localStorage.getItem("ipp_backup");
     if (saved) {
         document.getElementById("editing").value = saved;
     } else {
-        document.getElementById("editing").value = "# Welcome to I++ Terminal\nsimpan toko = Bakso Bangi Pak Romdani\ncetak toko\ntambah 10 20";
+        // Tampilan awal jika user baru pertama kali buka
+        document.getElementById("editing").value = "# I++ Language\ncetak Halo dari Bangi!\nsimpan nama = Nasa\ncetak nama";
     }
     updateView();
-}
+};
