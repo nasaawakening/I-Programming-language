@@ -16,6 +16,16 @@
         <button class="nav-btn" onclick="openTab('docs')">📖 Cara Pakai</button>
         <button class="nav-btn" onclick="openTab('terminal')">💻 Terminal & Uji Coba</button>
         <div class="credit">By Nasa - Bangi</div>
+
+<div class="controls">
+        <button onclick="jalankanIpp()">./run_ipp</button>
+        <button onclick="clearConsole()">clear</button>
+        <button onclick="exportCode()">💾 Export .ipp</button>
+        <label for="importFile" class="custom-file-upload">[ 📂 Import ]</label>
+    <input type="file" id="importFile" onchange="importCode(event)" style="display:none;">
+    <button onclick="shareProject()" style="border-color: #ffbd2e; color: #ffbd2e;">👥 Share Multiplayer</button>
+                                        </div>
+
     </nav>
 
     <main class="content">
