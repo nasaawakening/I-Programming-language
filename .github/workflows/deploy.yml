@@ -1,15 +1,16 @@
-name: Deploy I++ to GitHub Pages
+name: Deploy and Release I++
 
 on:
   push:
-    branches: ["main"] # Pastikan nama branch kamu 'main' atau 'master'
+    branches: ["main"]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 jobs:
+  # JOB 1: Deploy ke GitHub Pages
   deploy:
     environment:
       name: github-pages
@@ -25,8 +26,34 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Mengunggah semua file di root (index, style, script)
+          path: '.'
           
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # JOB 2: Create Release Tag & Upload Files
+  release:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Zip Source Files
+        run: |
+          zip -r ipp-engine-v${{ github.run_number }}.zip index.html style.css script.js README.md LICENSE
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Release I++ v1.0.${{ github.run_number }}
+          body: |
+            Update otomatis dari GitHub Actions.
+            - Menambahkan fitur Export/Import
+            - Menambahkan fitur Multiplayer
+            - Build ID: ${{ github.run_id }}
+          files: ipp-engine-v${{ github.run_number }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
