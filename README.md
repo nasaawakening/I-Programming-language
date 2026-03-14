@@ -1,6 +1,7 @@
-![Deploy Status](https://github.com/nasaawakening/I++ Programming Language/actions/workflows/deploy.yml/badge.svg)
-[![Latest Release](https://img.shields.io/github/v/release/nasaawakening/I++ Programming Language)](https://github.com/nasaawakening/I++ 
- Programming Language/releases)
+<p align="center">
+  <img src="https://github.com/nasaawakening/I-Programming-language/actions/workflows/deploy.yml/badge.svg" alt="Deploy Status">
+  <img src="https://img.shields.io/github/v/release/nasaawakening/I-Programming-language" alt="Latest Release">
+</p>
 
 # I++ Programming Language 🚀
 
