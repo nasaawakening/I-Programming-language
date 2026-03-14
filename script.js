@@ -177,3 +177,35 @@ window.onload = () => {
     // Inisialisasi tampilan
     updateView();
 };
+
+// Fungsi untuk memuat berbagai macam contoh kode
+function isiContoh() {
+    const select = document.getElementById("exampleSelect");
+    const choice = select.value;
+    let code = "";
+
+    switch (choice) {
+        case "halo":
+            code = "# Contoh 1: Halo Dunia\ncetak Selamat Datang di I++ Engine\ncetak Bahasa ini lahir dari Kayenlor, Kediri.";
+            break;
+            
+        case "variabel":
+            code = "# Contoh 2: Variabel\nsimpan nama = Nasa\nsimpan status = Developer I++\ncetak Halo namaku:\ncetak nama\ncetak Pekerjaan:\ncetak status";
+            break;
+            
+        case "matematika":
+            code = "# Contoh 3: Penjumlahan\n# Masukkan angka pertama dan kedua\ncetak Hasil dari 500 + 250 adalah:\ntambah 500 250\n\ncetak Hasil dari 1000 + 750:\ntambah 1000 750";
+            break;
+            
+        case "bakso":
+            code = "# Contoh 4: Kasir Bakso Bangi Pak Romdani\nsimpan menu = Bakso Komplit\nsimpan harga = 15000\nsimpan es_teh = 3000\n\ncetak Pesanan:\ncetak menu\n\ncetak Total_Bayar:\ntambah 15000 3000\n\ncetak Terima_Kasih_Sudah_Mampir!";
+            break;
+            
+        default:
+            return;
+    }
+
+    // Masukkan ke editor dan update tampilan
+    document.getElementById("editing").value = code;
+    updateView();
+}
