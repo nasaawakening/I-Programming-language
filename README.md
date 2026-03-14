@@ -1,3 +1,7 @@
+![Deploy Status](https://github.com/nasaawakening/I++ Programming Language/actions/workflows/deploy.yml/badge.svg)
+[![Latest Release](https://img.shields.io/github/v/release/nasaawakening/I++ Programming Language)](https://github.com/nasaawakening/I++ 
+ Programming Language/releases)
+
 # I++ Programming Language 🚀
 
 **I++** adalah bahasa pemrograman edukatif berbasis web yang dirancang untuk kesederhanaan. Dibangun dengan JavaScript, bahasa ini memungkinkan siapa saja menjalankan kode langsung di browser.
