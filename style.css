@@ -214,3 +214,41 @@ code {
     margin: 10px 0; 
     border-left: 3px solid #ffbd2e; 
 }
+
+/* --- Force Landscape Style --- */
+#landscape-force {
+    display: none; /* Default tersembunyi */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #0a0a0a;
+    color: #00ff41;
+    z-index: 9999; /* Pastikan paling atas */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Muncul hanya jika posisi layar Portrait (HP Berdiri) */
+@media screen and (orientation: portrait) {
+    #landscape-force {
+        display: flex;
+    }
+    .main-layout {
+        display: none; /* Sembunyikan aplikasi utama agar tidak berantakan */
+    }
+}
+
+.phone {
+    font-size: 50px;
+    animation: rotate 2s ease-in-out infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-90deg); }
+    100% { transform: rotate(0deg); }
+}
