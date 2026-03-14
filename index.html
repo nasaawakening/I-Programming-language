@@ -72,7 +72,14 @@
                 <div class="controls">
                     <button class="btn-run" onclick="jalankanIpp()">./run_ipp</button>
                     <button onclick="clearConsole()">clear</button>
-                    <button onclick="isiContoh()">Load Example</button>
+                    <select id="exampleSelect" onchange="isiContoh()" style="background: #222; color: #00ff41; border: 1px solid #444; padding: 5px; font-family: 'Fira Code', monospace; border-radius: 4px; cursor: pointer;">
+    <option value="" disabled selected>📜 Pilih Contoh Kode</option>
+    <option value="halo">1. Halo Dunia</option>
+    <option value="variabel">2. Penggunaan Variabel</option>
+    <option value="matematika">3. Hitung Cepat</option>
+    <option value="bakso">4. Kasir Bakso Bangi</option>
+</select>
+
                     <button onclick="exportCode()">💾 Export .ipp</button>
                     
                     <label for="importFile" class="custom-file-upload">📂 Import</label>
