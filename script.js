@@ -152,6 +152,15 @@ function isiContoh() {
 }
 
 window.onload = () => {
+     // Meminta sistem mengunci layar ke landscape (jika didukung browser)
+    if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(function(error) {
+            console.log("Kunci orientasi ditolak/tidak didukung: ", error);
+        });
+    }
+
+    // Kode onload kamu yang sudah ada sebelumnya
+    const urlParams = new URLSearchParams(window.location.search);
     // 1. Cek apakah ada kode di URL (Multiplayer)
     const urlParams = new URLSearchParams(window.location.search);
     const codeParam = urlParams.get('code');
