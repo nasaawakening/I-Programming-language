@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I++ Programming Language</title>
+    <title>I++ Terminal IDE</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>I++ <span class="version">v1.0</span></h1>
-        <p>Interpreter Engine by <strong>Nasa</strong></p>
-    </header>
+<div class="terminal-window">
+    <div class="terminal-header">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <div class="title">nasa@bangi: ~/ipp-compiler</div>
+    </div>
 
     <div class="editor-wrapper">
         <textarea id="editing" spellcheck="false" oninput="updateView(); syncScroll();" onscroll="syncScroll()"></textarea>
@@ -21,13 +23,13 @@
     </div>
 
     <div class="controls">
-        <button onclick="jalankanIpp()" id="runBtn">RUN CODE ▶</button>
-        <button onclick="clearConsole()" id="clearBtn">Hapus Konsol</button>
+        <button onclick="jalankanIpp()">./run_ipp</button>
+        <button onclick="clearConsole()">clear</button>
     </div>
 
-    <div class="console-box">
-        <h3>Terminal Output:</h3>
-        <pre id="output">> Mesin I++ siap di Kayenlor...</pre>
+    <div class="console-section">
+        <div class="console-label">// SYSTEM_LOG</div>
+        <pre id="output">I++ System v1.0 - Ready in Kayenlor.</pre>
     </div>
 </div>
 
